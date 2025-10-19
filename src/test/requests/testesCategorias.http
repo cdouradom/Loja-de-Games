@@ -1,0 +1,40 @@
+@baseUrl = http://localhost:8080
+
+### Criar Categoria - equivalente ao INSERT INTO tb_categorias (nome) VALUES ('Aventura');
+POST {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "nome": "ygygiuh"
+}
+
+### Listar Categorias - equivalente ao SELECT * FROM db_lojadegames.tb_categorias;
+GET {{baseUrl}}/categorias
+
+
+### Buscar Categoria por ID - equivalente ao SELECT * FROM db_lojadegames.tb_categorias WHERE id = 6;
+GET {{baseUrl}}/categorias/8
+
+### Buscar Categoria por Nome - equivalente ao SELECT * FROM db_lojadegames.tb_categorias WHERE nome LIKE "%Aventura%";
+GET {{baseUrl}}/categorias/nome/Aventura
+
+
+### Atualizar Categoria - equivalente ao UPDATE tb_categorias SET nome = 'Aventura e Ação' WHERE id = 6;
+PUT {{baseUrl}}/categorias
+Content-Type: application/json
+
+{
+  "id":8,
+  "nome": "jgjughgh"
+}
+
+### Deletar Categoria - equivalente ao DELETE FROM tb_categorias WHERE id = 6;
+DELETE {{baseUrl}}/categorias/8
+Accept: application/json
+
+
+### Deletar Todas as Categorias - equivalente ao DELETE FROM tb_categorias;
+DELETE {{baseUrl}}/categorias 
+Accept: application/json
+
+### Fim dos testes de Categoria

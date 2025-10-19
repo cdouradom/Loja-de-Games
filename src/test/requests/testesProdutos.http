@@ -1,0 +1,152 @@
+@baseUrl = http://localhost:8080
+
+### Criar Produto - equivalente ao INSERT INTO tb_produtos (nome, descricao, preco, estoque, categoria_id) VALUES ('The Legend of Zelda: Tears of the Kingdom', 'Aventura no reino de Hyrule', 299.90, 15, 1);
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "titulo": "The Legend of Zelda: Tears of the Kingdom",
+  "descricao": "Aventura no reino de Hyrule",
+  "foto": "https://ik.imagekit.io/andremds/nba%202k%2025.avif?updatedAt=1760811796304",
+  "preco": 299.90,
+  "quantidade": 15,
+  "categoria": {
+    "id": 1
+    }
+}
+
+### Listar Produtos - equivalente ao SELECT * FROM db_lojadegames.tb_produtos;
+GET {{baseUrl}}/produtos
+Accept: application/json
+
+### Buscar Produto por ID - equivalente ao SELECT * FROM db_lojadegames.tb_produtos WHERE id = 1;
+GET {{baseUrl}}/produtos/13
+Accept: application/json
+
+### Buscar Produto por Título - equivalente ao SELECT * FROM db_lojadegames.tb_produtos WHERE titulo LIKE "%Zelda%";
+GET {{baseUrl}}/produtos/titulo/mario
+Accept: application/json
+
+### Buscar produtos com preço MAIOR que 400 (ordem crescente) - equivalente ao SELECT * FROM db_lojadegames.tb_produtos WHERE preco > 400 ORDER BY preco ASC;
+GET {{baseUrl}}/produtos/maior/400
+Accept: application/json
+
+### Buscar produtos com preço MENOR que 100 (ordem decrescente)
+GET {{baseUrl}}/produtos/menor/100
+Accept: application/json
+
+### Buscar produtos com preço MAIOR ou igual a 400 (ordem crescente)
+GET {{baseUrl}}/produtos/maiorouigual/400
+Accept: application/json 
+
+### Buscar produtos com preço MENOR ou igual a 100 (ordem decrescente)
+GET {{baseUrl}}/produtos/menorouigual/100
+Accept: application/json 
+
+
+### Atualizar Produto
+PUT {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "id": 13,
+  "titulo": "Thtyfhgyhkjkl",
+  "descricao": "Aventura no reino de Hyrule",
+  "foto": "https://ik.imagekit.io/andremds/nba%202k%2025.avif?updatedAt=1760811796304",
+  "preco": 299.90,
+  "quantidade": 12,
+  "categoria": {
+    "id": 10
+    }
+}
+
+### Deletar Produto por ID - equivalente ao DELETE FROM db_lojadegames.tb_produtos WHERE id = 11;
+DELETE {{baseUrl}}/produtos/13
+Accept: application/json
+
+### Deletar Todos os Produtos - equivalente ao DELETE FROM db_lojadegames.tb_produtos;
+DELETE {{baseUrl}}/produtos/
+Accept: application/json
+
+### Teste de Erro ao Buscar Produto por ID Inexistente
+GET {{baseUrl}}/produtos/9999
+Accept: application/json
+
+### Teste de Erro ao Criar Produto com Categoria Inexistente
+POST {{baseUrl}}/produtos
+Content-Type: application/json  
+
+{
+  "titulo": "Jogo Inexistente",
+  "descricao": "Descrição do jogo inexistente",
+  "foto": "https://exemplo.com/imagem.jpg",
+  "preco": 199.90,
+  "quantidade": 10,
+  "categoria": {
+    "id": 9999
+    }
+} 
+
+### Teste de Erro ao Atualizar Produto Inexistente
+PUT {{baseUrl}}/produtos
+Content-Type: application/json  
+
+{
+  "id": 9999,
+  "titulo": "Jogo Inexistente",
+  "descricao": "Descrição do jogo inexistente",
+  "foto": "https://exemplo.com/imagem.jpg",
+  "preco": 199.90,
+  "quantidade": 10,
+  "categoria": {
+    "id": 1
+    }
+} 
+
+### Teste de Erro ao Criar Produto com Dados Inválidos (preço negativo)
+POST {{baseUrl}}/produtos
+Content-Type: application/json
+
+{
+  "titulo": "Jogo com Preço Inválido",
+  "descricao": "Descrição do jogo com preço inválido",
+  "foto": "https://exemplo.com/imagem.jpg",
+  "preco": -50.00,
+  "quantidade": 10,
+  "categoria": {
+    "id": 1
+    }
+} 
+
+### Teste de Erro ao Atualizar Produto com Dados Inválidos (quantidade negativa)
+PUT {{baseUrl}}/produtos
+Content-Type: application/json  
+
+{
+  "id": 1,
+  "titulo": "Jogo com Quantidade Inválida",
+  "descricao": "Descrição do jogo com quantidade inválida",
+  "foto": "https://exemplo.com/imagem.jpg",
+  "preco": 150.00,
+  "quantidade": -5,
+  "categoria": {
+    "id": 1
+    }
+} 
+
+### Teste de Erro ao Deletar Produto Inexistente
+DELETE {{baseUrl}}/produtos/9999  
+Accept: application/json
+
+
+### QUANDO NÃO HOUVER PRODUTOS CADASTRADOS ###
+
+### Teste de Erro ao Deletar Todos os Produtos QUANDO NÃO HOUVER PRODUTOS CADASTRADOS
+DELETE {{baseUrl}}/produtos/
+Accept: application/json
+
+### Listar Produtos QUANDO NÃO HOUVER PRODUTOS CADASTRADOS
+GET {{baseUrl}}/produtos
+Accept: application/json  
+
+### Fim dos testes de Produto

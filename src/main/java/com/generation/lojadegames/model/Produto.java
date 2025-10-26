@@ -32,7 +32,7 @@ public class Produto { //indica que a classe é uma entidade do JPA
 	private String titulo; // Define o atributo titulo 
     
     @Column(length = 2000) // Define o tamanho máximo do campo no banco de dados
-    @NotBlank(message = "O atributo Texto é obrigatório!") // Impedir que o Texto seja em branco
+    @NotBlank(message = "O atributo descricao é obrigatório!") // Impedir que o Texto seja em branco
     @Size(min = 10, max = 2000, message = "O atributo Texto deve conter no mínimo 10 e no máximo 2000 caracteres") // Define o tamanho mínimo e máximo do campo 
     private String descricao; // Define o atributo descricao do produto
 
@@ -51,6 +51,11 @@ public class Produto { //indica que a classe é uma entidade do JPA
     @ManyToOne // Define o relacionamento um-para-muitos com Categoria ( muitos produtos para uma categoria)
 	@JsonIgnoreProperties("produtos") // Ignora a propriedade produtos para evitar recursão infinita durante a serialização JSON
 	private Categoria categoria; // Define o atributo postagem como uma lista de Postagem
+
+
+    @ManyToOne // Define o relacionamento um-para-muitos com Usuario ( muitos produtos para um usuario/vendedor)
+	@JsonIgnoreProperties("produtos") // Ignora a propriedade produtos para evitar recursão infinita durante a serialização JSON
+	private Usuario usuario; // Define o atributo postagem como uma lista de Postagem
 
     //Getters e Setters
     public Long getId() {
@@ -115,6 +120,14 @@ public class Produto { //indica que a classe é uma entidade do JPA
 
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;  // Define o valor do atributo categoria
+    }
+
+    public Usuario getUsuario() {
+        return usuario; // Retorna o valor do atributo usuario
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario; // Define o valor do atributo categoria
     }   
 
 }

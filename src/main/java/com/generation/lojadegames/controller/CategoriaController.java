@@ -34,7 +34,7 @@ public class CategoriaController {
         // equivalente ao SELECT * FROM db_lojadegames.tb_categorias;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<Categoria> getById(@PathVariable Long id) {
         return categoriaRepository.findById(id)
                 .map(resposta -> ResponseEntity.ok(resposta))

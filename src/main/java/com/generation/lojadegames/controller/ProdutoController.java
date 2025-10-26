@@ -39,7 +39,6 @@ public class ProdutoController { // Utiliza o nome ProdutoController para a clas
     @GetMapping // Mapeia requisições GET para esse método
 	public ResponseEntity<List<Produto>> getAll() { // Define o método getAll que retorna uma lista de Produto dentro de um ResponseEntity
 	    return ResponseEntity.ok(produtoRepository.findAll()); // Retorna a lista de postagens com status 200 (OK)
-
         // equivalente ao SELECT * FROM db_lojadegames.tb_postagens;
 	}
 
@@ -47,22 +46,19 @@ public class ProdutoController { // Utiliza o nome ProdutoController para a clas
 	public ResponseEntity<Produto> getById(@PathVariable Long id) { // Extrai o ID da URL e define o método getById que retorna
 		return produtoRepository.findById(id)   // Busca a Produto pelo ID
 				.map(resposta -> ResponseEntity.ok(resposta)) // uma Produto dentro de um ResponseEntity
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna a Produto com status 200 (OK) ou 404 (Not Found) se não encontrada
-		
+				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // Retorna a Produto com status 200 (OK) ou 404 (Not Found) se não encontrada		
         // equivalente ao SELECT * FROM db_lojadegames.tb_postagens WHERE id = ?;
 	}
 
 	@GetMapping("/titulo/{titulo}") // Mapeia requisições GET com um título na URL para esse método
 	public ResponseEntity<List<Produto>> getByTitulo(@PathVariable String titulo) { // Extrai o título da URL e define o método getByTitulo que retorna uma lista de Produto dentro de um ResponseEntity
-		return ResponseEntity.ok(produtoRepository.findAllByTituloContainingIgnoreCase(titulo)); // Retorna a lista de postagens que contém o título, ignorando maiúsculas e minúsculas, com status 200 (OK)
-		
+		return ResponseEntity.ok(produtoRepository.findAllByTituloContainingIgnoreCase(titulo)); // Retorna a lista de postagens que contém o título, ignorando maiúsculas e minúsculas, com status 200 (OK)		
         // equivalente ao SELECT * FROM db_lojadegames.tb_postagens WHERE titulo LIKE "%titulo%";
 	}
 
     @GetMapping("/maior/{preco}") // Mapeia requisições GET com um preço na URL para esse método
     public ResponseEntity<List<Produto>> getByPrecoMaior(@PathVariable Float preco) { // Extrai o preço da URL e define o método getByPrecoMaior que retorna uma lista de Produto dentro de um ResponseEntity
         return ResponseEntity.ok(produtoRepository.findByPrecoGreaterThanOrderByPrecoAsc(preco)); // Retorna a lista de produtos com preço maior que o valor fornecido, em ordem crescente, com status 200 (OK)
-
         // equivalente ao SELECT * FROM db_lojadegames.tb_produtos WHERE preco > ? ORDER BY preco ASC;
     }
 
@@ -95,7 +91,8 @@ public class ProdutoController { // Utiliza o nome ProdutoController para a clas
 		}
 		throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Categoria inexistente", null); // Se o categoria não existir, lança uma exceção com status 400 (Bad Request)
 		
-        // equivalente ao INSERT INTO tb_postagens (data, descricao, foto, preco, quantidade, titulo, categoria_id) VALUES (current_timestamp(), 'descricao', 'foto', preco, quantidade, 'titulo', categoria_id);
+        // equivalente ao INSERT INTO tb_postagens (data, descricao, foto, preco, quantidade, titulo, categoria_id) 
+		// VALUES (current_timestamp(), 'descricao', 'foto', preco, quantidade, 'titulo', categoria_id);
 	}
 
 	@PutMapping // Mapeia requisições PUT para esse método
@@ -108,7 +105,8 @@ public class ProdutoController { // Utiliza o nome ProdutoController para a clas
 		}
 		return ResponseEntity.notFound().build(); // Se a Produto não existir, retorna status 404 (Not Found)	
 		
-        // equivalente ao UPDATE tb_postagens SET data = current_timestamp(), descricao = 'descricao', foto = 'foto', preco = preco, quantidade = quantidade, titulo = 'titulo', categoria_id = categoria_id WHERE id = ?;
+        // equivalente ao UPDATE tb_postagens SET data = current_timestamp(), descricao = 'descricao', foto = 'foto', preco = preco, quantidade = quantidade, titulo 
+		// = 'titulo', categoria_id = categoria_id WHERE id = ?;
 	}
 
 	@ResponseStatus(HttpStatus.NO_CONTENT) // Define o status de resposta como 204 (No Content)
